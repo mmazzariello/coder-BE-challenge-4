@@ -5,15 +5,6 @@ const cartManager = new CartManager("./cart.txt");
 
 const cartRouter = Router();
 
-// cartRouter.get("/", async (req, res) => {
-//   try {
-//     const carts = await cartManager.getProducts();
-//     res.send(carts);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-
 cartRouter.get("/:id", async (req, res) => {
   try {
     const cart = await cartManager.getCartById(req.params.id);
@@ -25,14 +16,25 @@ cartRouter.get("/:id", async (req, res) => {
 
 cartRouter.post("/", async (req, res) => {
   try {
-    const { title, description, price, thumbnail, code, stock } = req.body;
-    await cartManager.addProduct({
+    const {
       title,
       description,
       price,
       thumbnail,
       code,
       stock,
+      status,
+      category,
+    } = req.body;
+    await cartManager.addProductCart({
+      title,
+      description,
+      price,
+      thumbnail,
+      code,
+      stock,
+      status,
+      category,
     });
     res.send("Cart created");
   } catch (error) {

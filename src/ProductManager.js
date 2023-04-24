@@ -61,7 +61,7 @@ export class ProductManager {
   }
 
   async updateProduct(
-    { title, description, price, thumbnail, code, stock },
+    { title, description, price, thumbnail, code, stock, status, category },
     id
   ) {
     const prodsJson = await fs.readFile(this.path, "utf-8");
@@ -75,6 +75,8 @@ export class ProductManager {
       prodsParse[index].thumbnail = thumbnail;
       prodsParse[index].code = code;
       prodsParse[index].stock = stock;
+      prodsParse[index].status = status;
+      prodsParse[index].category = category;
 
       await fs.writeFile(this.path, JSON.stringify(prodsParse));
       return "Product updated successfully";
@@ -104,13 +106,24 @@ export class ProductManager {
 }
 
 class Product {
-  constructor(title, description, price, thumbnail, code, stock) {
+  constructor(
+    title,
+    description,
+    price,
+    thumbnail,
+    code,
+    stock,
+    status,
+    category
+  ) {
     this.title = title;
     this.description = description;
     this.price = price;
     this.thumbnail = thumbnail;
     this.code = code;
     this.stock = stock;
+    this.status = status;
+    this.category = category;
     this.id = Product.incrementID();
   }
 
@@ -128,88 +141,108 @@ const product1 = new Product(
   "Product 1",
   "Description 1",
   10,
-  "thumbnail0.png",
+  ["thumbnail0.png"],
   "aaa124",
-  10
+  10,
+  "",
+  "Category1"
 );
 const product2 = new Product(
   "Product 2",
   "Description 2",
   20,
-  "thumbnail1.png",
+  ["thumbnail1.png"],
   "aab125",
-  20
+  20,
+  "",
+  "Category2"
 );
 const product3 = new Product(
   "Product 3",
   "Description 3",
   30,
-  "thumbnail2.png",
+  ["thumbnail2.png"],
   "aac125",
-  30
+  30,
+  "",
+  "Category3"
 );
 
 const product4 = new Product(
   "Product 4",
   "",
   40,
-  "thumbnail4.png",
+  ["thumbnail4.png"],
   "aaa123",
-  40
+  40,
+  "",
+  "Category4"
 );
 
 const product5 = new Product(
   "Product 5",
   "Description 5",
   50,
-  "thumbnail5.png",
+  ["thumbnail5.png"],
   "aab123",
-  50
+  50,
+  "",
+  "Category5"
 );
 
 const product6 = new Product(
   "Product 6",
   "Description 6",
   60,
-  "thumbnail6.png",
+  ["thumbnail6.png"],
   "aab123",
-  60
+  60,
+  "",
+  "Category6"
 );
 
 const product7 = new Product(
   "Product 7",
   "Description 7",
   10,
-  "thumbnail7.png",
+  ["thumbnail7.png"],
   "aaa127",
-  10
+  10,
+  "",
+  "Category7"
 );
 
 const product8 = new Product(
   "Product 8",
   "Description 8",
   20,
-  "thumbnail8.png",
+  ["thumbnail8.png"],
   "aab128",
-  20
+  20,
+  "",
+  "Category8"
 );
 
 const product9 = new Product(
   "Product 9",
   "Description 9",
   30,
-  "thumbnail9.png",
+  ["thumbnail9.png"],
   "aac129",
-  30
+  30,
+  "",
+  "Category9"
 );
 
 const product10 = new Product(
   "Product 10",
   "Description 10",
   30,
-  "thumbnail10.png",
+  ["thumbnail10.png"],
   "aac130",
-  30
+  30,
+  "",
+  "Category10"
 );
 
 //ADD PRODUCTS
