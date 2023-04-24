@@ -14,31 +14,20 @@ cartRouter.get("/:id", async (req, res) => {
   }
 });
 
-cartRouter.post("/", async (req, res) => {
+cartRouter.post("/carts/:idCart/products/:idProduct", async (req, res) => {
   try {
-    const {
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-      status,
-      category,
-    } = req.body;
-    await cartManager.addProductCart({
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-      status,
-      category,
-    });
-    res.send("Cart created");
+    const idCart = req.params.idCart;
+    const idProduct = req.params.idProduct;
+    const quantity = req.body.quantity;
+    await cartManager.addProductCart(idProduct, quantity, idCart);
+    res
+      .status(200)
+      .json({
+        message: `Product with id ${idProduct} added to cart with id ${idCart}`,
+      });
   } catch (error) {
-    res.send(error);
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
